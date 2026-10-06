@@ -44,9 +44,9 @@ const initialQueries: Query[] = [
         support: true,
       },
       {
-        author: "Piyush Tiwari",
+        author: "Creator",
         time: "Sep 29, 2026 at 12:05 PM",
-        text: "It’s working now. Thank you!",
+        text: "It's working now. Thank you!",
       },
     ],
   },
@@ -72,7 +72,19 @@ const initialQueries: Query[] = [
     status: "Resolved",
     response: "Go to Packages > Edit pricing.",
     attachments: [],
-    messages: [],
+    messages: [
+      {
+        author: "Support Team",
+        time: "Sep 21, 2026 at 9:00 AM",
+        text: "Hi Piyush,\nYou can change your package pricing by going to the 'Packages' section in your dashboard, selecting the package you want to edit, and updating the pricing there. Let us know if you need further assistance.",
+        support: true,
+      },
+      {
+        author: "Creator",
+        time: "Sep 21, 2026 at 10:15 AM",
+        text: "Thank you! I was able to update the pricing successfully.",
+      },
+    ],
   },
 ];
 
@@ -97,7 +109,7 @@ const fieldClass =
 const errorClass = "-mt-1.5 mb-2.5 text-xs text-[#c04b22]";
 
 const rowClass =
-  "grid grid-cols-1 gap-3 py-4 border-t border-[#edf0f4] first:border-t-0 lg:grid-cols-[2fr_1fr_1fr_2fr_auto] lg:items-center lg:gap-4 lg:py-3 lg:border-t-0";
+  "grid grid-cols-1 gap-3 py-4 border-t border-[#edf0f4] first:border-t-0 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,2fr)_8rem] lg:items-center lg:gap-4 lg:py-3 lg:border-t-0";
 
 const dataLabelClass =
   "lg:before:content-none before:mb-1 before:block before:text-[10px] before:font-semibold before:text-[#71809b] before:content-[attr(data-label)]";
@@ -251,7 +263,7 @@ function AttachmentPreview({
     <span
       className={`grid ${
         compact ? "w-6 h-6" : "w-8 h-8"
-      } shrink-0 place-items-center overflow-hidden rounded ${background} ${className}`}
+      } place-items-center overflow-hidden rounded ${background} ${className}`}
     >
       {isImage && !iconOnly && file.url ? (
         <img src={file.url} alt="" className="w-full h-full object-cover" />
@@ -370,7 +382,7 @@ export default function HelpAndQuery() {
     }
 
     const message = {
-      author: "Piyush Tiwari",
+      author: "Creator",
       time: `${now()} at ${new Intl.DateTimeFormat("en-US", {
         hour: "numeric",
         minute: "2-digit",
@@ -405,7 +417,7 @@ export default function HelpAndQuery() {
   };
 
   return (
-    <main className="min-h-screen bg-[#fafafa] px-3.5 py-6 sm:px-6 lg:px-8 font-sans text-[#0d1833]">
+    <main className="min-h-screen bg-[#fdfcfc] px-3.5 py-6 sm:px-6 lg:px-8 font-sans text-[#0d1833]">
       <div className="mx-auto max-w-7xl">
         <header className="mb-6 sm:mb-8">
           <h1 className="text-2xl font-bold leading-tight tracking-tight sm:text-3xl lg:text-4xl">
@@ -480,7 +492,7 @@ export default function HelpAndQuery() {
               />
               <button
                 type="submit"
-                className="h-11 w-full sm:w-48 shrink-0 cursor-pointer rounded-xl border-0 bg-[#e69a1a] text-sm font-bold text-white hover:bg-[#d68c10] transition-colors"
+                className="h-11 w-full sm:w-48 cursor-pointer rounded-xl bg-[#e69a1a] text-sm font-bold text-white hover:bg-[#d68c10] transition-colors"
               >
                 Submit Query
               </button>
@@ -499,7 +511,7 @@ export default function HelpAndQuery() {
           </div>
           <div className="w-full overflow-x-auto">
             <div
-              className={`${rowClass} hidden lg:grid pb-3 pt-0 text-xs font-semibold text-[#4f6184]`}
+              className={`${rowClass} hidden lg:grid pb-3 text-xs font-semibold text-[#4f6184]`}
             >
               <div>Query</div>
               <div>Submitted</div>
@@ -509,7 +521,7 @@ export default function HelpAndQuery() {
             </div>
             {queries.map((query) => (
               <div className={rowClass} key={query.id}>
-                <div className="min-w-0 break-words">
+                <div className="wrap-break-word">
                   <strong className="block text-xs sm:text-sm font-medium leading-snug text-[#121b32]">
                     {query.subject}
                   </strong>
@@ -517,7 +529,7 @@ export default function HelpAndQuery() {
                     {query.description}
                   </p>
                 </div>
-                <div className={`min-w-0 ${dataLabelClass}`} data-label="Submitted">
+                <div className={` ${dataLabelClass}`} data-label="Submitted">
                   <strong className="block text-xs font-medium text-[#4f6182]">
                     {query.submitted}
                   </strong>
@@ -526,13 +538,13 @@ export default function HelpAndQuery() {
                   </span>
                 </div>
                 <div
-                  className={`min-w-0 flex flex-col items-start ${dataLabelClass}`}
+                  className={`flex flex-col items-start ${dataLabelClass}`}
                   data-label="Status"
                 >
                   <Status status={query.status} />
                 </div>
                 <p
-                  className={`min-w-0 text-xs leading-snug text-[#526282] break-words ${dataLabelClass}`}
+                  className={`text-xs leading-snug text-[#526282] wrap-break-word ${dataLabelClass}`}
                   data-label="Response"
                 >
                   {query.response}
@@ -614,7 +626,7 @@ function FilePicker({
     <div className="w-full sm:w-auto">
       <div className="relative flex flex-wrap sm:flex-nowrap items-center gap-2.5">
         <label
-          className="inline-flex h-11 w-full sm:w-auto shrink-0 cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#ffb66f] bg-white px-4 text-xs sm:text-sm font-bold text-[#f47700] hover:bg-[#fffdfa] transition-colors"
+          className="inline-flex h-11 w-full sm:w-auto cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#ffb66f] bg-white px-4 text-xs sm:text-sm font-bold text-[#f47700] hover:bg-[#fffdfa] transition-colors"
           htmlFor={id}
         >
           <PaperclipIcon />
@@ -641,7 +653,7 @@ function FilePicker({
             >
               <button
                 type="button"
-                className="shrink-0 cursor-pointer border-0 bg-transparent p-0 disabled:cursor-default"
+                className="shrink-0 cursor-pointer bg-transparent disabled:cursor-default"
                 onClick={() => onPreview(file)}
                 disabled={!file.url}
                 aria-label={`Preview ${file.name}`}
@@ -649,7 +661,7 @@ function FilePicker({
                 <AttachmentPreview file={file} compact />
               </button>
               <div className="min-w-0 flex-1">
-                <b className="block truncate font-semibold text-[#1b2740]">
+                <b className="block truncate font-semibold text-[#1b2740]" title={file.name}>
                   {file.name}
                 </b>
                 <small className="block truncate text-[11px]">{file.size}</small>
@@ -658,7 +670,7 @@ function FilePicker({
                 type="button"
                 onClick={() => onRemove(index)}
                 aria-label={`Remove ${file.name}`}
-                className="ml-auto shrink-0 cursor-pointer border-0 bg-transparent text-base text-[#697792] hover:text-[#10192f]"
+                className="ml-auto shrink-0 cursor-pointer bg-transparent text-base text-[#697792] hover:text-[#10192f]"
               >
                 ×
               </button>
@@ -711,7 +723,7 @@ function QueryModal({
       aria-labelledby="details-title"
     >
       <section className="w-full max-w-2xl max-h-[90vh] my-auto flex flex-col rounded-xl bg-white shadow-2xl overflow-hidden">
-        <header className="shrink-0 flex items-start justify-between gap-3 border-b border-[#e1e5ec] bg-white p-4 sm:p-6">
+        <header className="flex items-start justify-between gap-3 border-b border-[#e1e5ec] bg-white p-4 sm:p-6">
           <div>
             <h2
               id="details-title"
@@ -727,14 +739,14 @@ function QueryModal({
             type="button"
             onClick={onClose}
             aria-label="Close details"
-            className="cursor-pointer border-0 bg-transparent p-1 text-[#152039] hover:opacity-75 transition-opacity"
+            className="cursor-pointer bg-transparent p-1 text-[#152039] hover:opacity-75 transition-opacity"
           >
             <CloseIcon />
           </button>
         </header>
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 sm:p-6">
           <div className="flex flex-wrap items-center gap-2 text-xs">
-            <b className="text-sm font-semibold">Your Query</b>
+            <b className="text-sm font-semibold text-[#10192f]">Your Query</b>
             <Status status={query.status} />
             <span className="w-full text-xs text-[#8a96aa] sm:w-auto">
               Submitted on {query.submitted} at {query.time}
@@ -751,23 +763,24 @@ function QueryModal({
               <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {query.attachments.map((file) => (
                   <article
-                    className="flex items-center gap-3 rounded-lg border border-[#dbe1ea] p-2.5"
+                    className="flex min-w-0 items-center gap-3 rounded-lg border border-[#dbe1ea] p-2.5"
                     key={file.name}
                   >
                     <AttachmentPreview
                       file={file}
                       iconOnly
                       tone={file.type === "application/pdf" ? "pdf" : "warm"}
+                      className= "shrink-0"
                     />
                     <div className="min-w-0 flex-1">
-                      <b className="block truncate text-xs font-medium">
+                      <b className="block truncate text-xs font-medium" title={file.name}>
                         {file.name}
                       </b>
                       <small className="block text-[11px] text-[#60708d]">
                         {file.size}
                       </small>
                     </div>
-                    <div className="flex items-center gap-1.5 shrink-0">
+                    <div className="flex shrink-0 items-center gap-1.5">
                       <button
                         type="button"
                         onClick={() => onPreview(file)}
@@ -803,8 +816,8 @@ function QueryModal({
               </div>
             </>
           )}
-          <hr className="my-5 border-0 border-t border-[#e1e5ec]" />
-          <h3 className="mb-3 text-sm sm:text-base font-bold">
+          <hr className="my-5 border-t border-[#e1e5ec]" />
+          <h3 className="mb-3 text-sm sm:text-base font-semibold text-[#10192f]">
             Response from Support
           </h3>
           <div className="grid gap-4">
@@ -817,12 +830,12 @@ function QueryModal({
                   className={`grid w-8 h-8 place-items-center rounded-full font-bold text-xs ${
                     message.support
                       ? "bg-[#fff0df] text-[#f47700]"
-                      : "bg-[#354151] text-white"
+                      : "bg-[#3b4965] text-white"
                   }`}
                 >
-                  {message.support ? "S" : "P"}
+                  {message.support ? "S" : "C"}
                 </div>
-                <div className="min-w-0">
+                <div className="flex flex-col gap-1">
                   <b className="block text-xs sm:text-sm font-semibold">{message.author}</b>
                   <small className="mb-1 block text-[11px] text-[#60708d]">
                     {message.time}
@@ -848,7 +861,7 @@ function QueryModal({
                           aria-label={`Preview ${file.name}`}
                         >
                           <AttachmentPreview file={file} compact />
-                          <span className="truncate">
+                          <span className="min-w-0 truncate">
                             {file.name}
                           </span>
                         </button>
@@ -860,7 +873,7 @@ function QueryModal({
             ))}
           </div>
           <div className="mt-5 border-t border-[#e1e5ec] pt-4">
-            <h3 className="mb-3 text-sm sm:text-base font-bold">Add a reply</h3>
+            <h3 className="mb-3 text-sm sm:text-base font-semibold text-[#10192f]">Add a reply</h3>
             <textarea
               value={reply}
               onChange={(e) => setReply(e.target.value)}
@@ -880,7 +893,7 @@ function QueryModal({
 
               <button
                 type="button"
-                className="h-10 w-full sm:w-32 shrink-0 cursor-pointer rounded-lg border-0 bg-[#e69a1a] text-xs font-bold text-white hover:bg-[#d68c10] transition-colors"
+                className="h-10 w-full sm:w-32 cursor-pointer rounded-lg bg-[#e69a1a] text-xs font-bold text-white hover:bg-[#d68c10] transition-colors"
                 onClick={onSend}
               >
                 Send Reply
@@ -922,8 +935,8 @@ function AttachmentPreviewModal({
           isPdf ? "w-full max-w-4xl h-[80vh]" : "w-auto max-w-full"
         }`}
       >
-        <header className="flex shrink-0 items-center justify-between gap-4 border-b border-[#e1e5ec] px-4 py-2.5 min-h-[48px] bg-white">
-          <div className="min-w-0">
+        <header className="flex items-center justify-between gap-4 border-b border-[#e1e5ec] px-4 py-2.5 min-h-[48px] bg-white">
+          <div className="flex flex-col gap-0.5 overflow-hidden">
             <h3
               id="preview-title"
               className="truncate text-xs sm:text-sm font-semibold text-[#10192f]"
@@ -932,7 +945,7 @@ function AttachmentPreviewModal({
             </h3>
             <span className="text-[11px] text-[#71809b]">{file.size}</span>
           </div>
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-2">
             {file.url && (
               <a
                 href={file.url}
@@ -947,7 +960,7 @@ function AttachmentPreviewModal({
               type="button"
               onClick={onClose}
               aria-label="Close preview"
-              className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg border-0 bg-transparent text-[#152039] hover:bg-[#f4f6f8] transition-colors"
+              className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg bg-transparent text-[#152039] hover:bg-[#f4f6f8] transition-colors"
             >
               <CloseIcon />
             </button>
@@ -959,7 +972,7 @@ function AttachmentPreviewModal({
             <iframe
               src={file.url}
               title={file.name}
-              className="w-full h-full border-0"
+              className="w-full h-full"
             />
           ) : (
             <img

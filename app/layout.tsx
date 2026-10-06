@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Help & Query | FEAG",
-  description: "Contact FEAG support and review your queries.",
+  description: "Contact FEAG Support and review your queries.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
