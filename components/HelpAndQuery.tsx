@@ -38,7 +38,7 @@ const MAX_QUERY_LENGTH = 2000;
 const MAX_VISIBLE_FILES = 5;
 const ACCEPTED_FILE_TYPES = ["image/png", "image/jpeg"];
 const HELP_QUERIES_API =
-  "https://2h2667jn-5000.inc1.devtunnels.ms/api/v1/help-queries";
+  "/api/help-queries";
 const formatQueryDate = (value: unknown) => {
   if (!value) {
     return "";
