@@ -202,7 +202,7 @@ const mapBackendQuery = (backendQuery: any): Query => {
     messages,
   };
 };
-const token = process.env.NEXT_PUBLIC_FEAG_ACCESS_TOKEN ?? "";
+const token = process.env.FEAG_ACCESS_TOKEN ?? "";
 const fileSize = (bytes: number) =>
   bytes < 1024 * 1024
     ? `${Math.ceil(bytes / 1024)} KB`
