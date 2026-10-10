@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const BACKEND_URL =
-  "https://2h2667jn-5000.inc1.devtunnels.ms/api/v1/help-queries";
+  "https://feag-backend-test-37460537567.asia-south2.run.app/api/v1/help-queries";
 
 async function forwardRequest(
   request: NextRequest,
